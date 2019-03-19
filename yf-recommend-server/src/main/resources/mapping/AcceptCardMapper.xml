@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yfdyf.recommend.dao.AcceptCardMapper">
+  <resultMap id="BaseResultMap" type="com.yfdyf.recommend.entity.bean.AcceptCard">
+    <id column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="PERSON_ID" jdbcType="VARCHAR" property="personId" />
+    <result column="TIMA" jdbcType="DATE" property="tima" />
+    <result column="INTEGRAL" jdbcType="VARCHAR" property="integral" />
+    <result column="NUM" jdbcType="VARCHAR" property="num" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    UUID, PERSON_ID, TIMA, INTEGRAL, NUM
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from acceptcard
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from acceptcard
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="rankinglist.model.AcceptCard">
+    insert into acceptcard (UUID, PERSON_ID, TIMA, 
+      INTEGRAL, NUM)
+    values (#{uuid,jdbcType=VARCHAR}, #{personId,jdbcType=VARCHAR}, #{tima,jdbcType=DATE}, 
+      #{integral,jdbcType=VARCHAR}, #{num,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="rankinglist.model.AcceptCard">
+    insert into acceptcard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="personId != null">
+        PERSON_ID,
+      </if>
+      <if test="tima != null">
+        TIMA,
+      </if>
+      <if test="integral != null">
+        INTEGRAL,
+      </if>
+      <if test="num != null">
+        NUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="tima != null">
+        #{tima,jdbcType=DATE},
+      </if>
+      <if test="integral != null">
+        #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="rankinglist.model.AcceptCard">
+    update acceptcard
+    <set>
+      <if test="personId != null">
+        PERSON_ID = #{personId,jdbcType=VARCHAR},
+      </if>
+      <if test="tima != null">
+        TIMA = #{tima,jdbcType=DATE},
+      </if>
+      <if test="integral != null">
+        INTEGRAL = #{integral,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        NUM = #{num,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="rankinglist.model.AcceptCard">
+    update acceptcard
+    set PERSON_ID = #{personId,jdbcType=VARCHAR},
+      TIMA = #{tima,jdbcType=DATE},
+      INTEGRAL = #{integral,jdbcType=VARCHAR},
+      NUM = #{num,jdbcType=VARCHAR}
+    where UUID = #{uuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
